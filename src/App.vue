@@ -24,6 +24,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <main>
+      <router-view></router-view>
     </main>
   </v-app>
 </template>
@@ -35,7 +36,9 @@
         sideNav: false,
         menuItems: [
           { icon: 'camera_roll', title: 'About' },
-          { icon: 'chat_bubble', title: 'Contact Us' }
+          { icon: 'chat_bubble', title: 'Contact Us' },
+          { icon: 'face', title: 'Sign up' },
+          { icon: 'lock_open', title: 'Sign in' }
         ]
       }
     }
