@@ -17,7 +17,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar dark class="red darken-4">
+    <v-toolbar dark class="primary">
       <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-toolbar-title>SuperRentals</v-toolbar-title>
       <v-spacer></v-spacer>
