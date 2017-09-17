@@ -41,5 +41,6 @@ export default new Router({
       name: 'Signin',
       component: Signin
     }
-  ]
+  ],
+  mode: 'history' // doesn't use '#' and the url looks cleaner (signup)
 })
