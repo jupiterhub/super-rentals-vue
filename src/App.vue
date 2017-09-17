@@ -2,17 +2,11 @@
   <v-app>
     <v-navigation-drawer v-model="sideNav">
       <v-list>
-        <v-list-tile>
+        <v-list-tile v-for="item in menuItems" :key="item.title">
           <v-list-tile-action>
-            <v-icon left>camera_roll</v-icon>
+            <v-icon left>{{item.icon}}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>About</v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon left>chat_bubble</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>Contact Us</v-list-tile-content>
+          <v-list-tile-content>{{item.title}}</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -23,13 +17,9 @@
       <v-spacer></v-spacer>
       <!-- only display responsively for bigger devices, check out classes at Vue documentation -->
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat>
-          <v-icon left>camera_roll</v-icon>
-          About
-        </v-btn>
-        <v-btn flat>
-          <v-icon left>chat_bubble</v-icon>
-          Contact Us
+        <v-btn flat v-for="item in menuItems" :key="item.title">
+          <v-icon left>{{item.icon}}</v-icon>
+          {{item.title}}
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -42,7 +32,11 @@
   export default {
     data () {
       return {
-        sideNav: false
+        sideNav: false,
+        menuItems: [
+          { icon: 'camera_roll', title: 'About' },
+          { icon: 'chat_bubble', title: 'Contact Us' }
+        ]
       }
     }
   }
