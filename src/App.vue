@@ -1,9 +1,28 @@
 <template>
   <v-app>
-    <v-toolbar>
+    <v-navigation-drawer v-model="sideNav">
+      <v-list>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon left>camera_roll</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>About</v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon left>chat_bubble</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>Contact Us</v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-toolbar dark class="red darken-4">
+      <v-toolbar-side-icon @click.native.stop="sideNav = !sideNav"></v-toolbar-side-icon>
       <v-toolbar-title>SuperRentals</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
+      <!-- only display responsively for bigger devices, check out classes at Vue documentation -->
+      <v-toolbar-items class="hidden-xs-only">
         <v-btn flat>
           <v-icon left>camera_roll</v-icon>
           About
@@ -23,7 +42,7 @@
   export default {
     data () {
       return {
-
+        sideNav: false
       }
     }
   }
