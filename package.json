@@ -1,6 +1,6 @@
 {
   "name": "super-rentals-vue",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Ported implementation of SuperRentals (Ember)",
   "author": "jupiterhub <jupiter.adverts@gmail.com>",
   "private": true,
