@@ -11,11 +11,12 @@
 
   <v-layout row wrap>
     <v-flex xs12>
-      <v-carousel>
+      <v-carousel style="cursor: pointer">
         <v-carousel-item v-for="unit in units"
         :src="unit.link"
-        :key="unit.id">
-        <div class="title">
+        :key="unit.id"
+        @click="goToProperty(unit.id)">
+        <div class= "title">
           {{unit.title}}
         </div>
         </v-carousel-item>
@@ -43,6 +44,11 @@ export default {
         { link: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg', id: 'urban-living', title: 'Urban Living' },
         { link: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg', id: 'downtown-charm', title: 'Downtown Charm' }
       ]
+    }
+  },
+  methods: {
+    goToProperty (propertyId) {
+      this.$router.push('rentals/' + propertyId)
     }
   }
 }

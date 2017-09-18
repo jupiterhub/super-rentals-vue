@@ -19,7 +19,7 @@
                 </div>
               </v-card-title>
               <v-card-actions>
-                <v-btn flat dark>
+                <v-btn flat dark to="/rentals/grand-old-mansion">
                   <v-icon left dark>arrow_forward</v-icon>
                    Check details
                 </v-btn>
