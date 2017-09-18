@@ -30,6 +30,7 @@ export default new Router({
     {
       path: '/rentals/:id',
       name: 'Rental',
+      props: true,  // pass the parameter as a props
       component: Rental
     },
     {
