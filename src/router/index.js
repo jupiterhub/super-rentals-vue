@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home' // @ is an alias for the root folder (src/)
 import Rentals from '@/components/Rental/Rentals'
 import CreateRental from '@/components/Rental/CreateRental'
+import Rental from '@/components/Rental/Rental'
 import Profile from '@/components/User/Profile'
 import Signup from '@/components/User/Signup'
 import Signin from '@/components/User/Signin'
@@ -25,6 +26,11 @@ export default new Router({
       path: '/rental/new',
       name: 'CreateRental',
       component: CreateRental
+    },
+    {
+      path: '/rentals/:id',
+      name: 'Rental',
+      component: Rental
     },
     {
       path: '/profile',
