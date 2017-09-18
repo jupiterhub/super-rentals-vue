@@ -16,6 +16,7 @@
                 <div>
                   <h5 class="mb-0">{{unit.title}}</h5>
                   <div>{{unit.city}}</div>
+                  <div>{{unit.viewingDate | date}}</div>
                 </div>
               </v-card-title>
               <v-card-actions>
