@@ -4,15 +4,15 @@
       <v-flex xs12>
         <v-card>
           <v-card-title>
-            <h6 class="primary--text">{{unit.title}}</h6>
+            <h6 class="primary--text">{{unit.name}}</h6>
           </v-card-title>
-          <v-card-media :src="unit.link"
+          <v-card-media :src="unit.imageUrl"
            height="400px">
           </v-card-media>
           <v-card-text>
-            <div class="primary--text">Unit available from: {{unit.rentAvailability}}</div>
+            <div class="primary--text">Viewing Date: {{unit.viewingDate}}</div>
             <div>
-              This grand old mansion sits on over 100 acres of rolling hills and dense redwood forests
+              {{unit.description}}
             </div>
           </v-card-text>
           <v-card-actions>

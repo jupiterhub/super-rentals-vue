@@ -7,7 +7,7 @@
           <v-container>
             <v-layout>
             <v-flex xs5 sm4 md3>
-              <v-card-media :src="unit.link"
+              <v-card-media :src="unit.imageUrl"
                height="200px">
               </v-card-media>
             </v-flex>
@@ -15,7 +15,7 @@
               <v-card-title primary-title>
                 <div>
                   <h5 class="mb-0">{{unit.title}}</h5>
-                  <div>Property Description</div>
+                  <div>{{unit.city}}</div>
                 </div>
               </v-card-title>
               <v-card-actions>

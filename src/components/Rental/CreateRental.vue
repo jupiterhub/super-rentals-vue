@@ -7,15 +7,15 @@
     </v-layout>
     <v-layout>
       <v-flex>
-        <form>
+        <form @submit.prevent="onCreateUnit">
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
-                name="unitName"
+                name="name"
                 label="Property Name"
-                id="unit-name"
+                id="name"
                 required
-                v-model="unitName">
+                v-model="name">
               </v-text-field>
             </v-flex>
           </v-layout>
@@ -61,7 +61,9 @@
 
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-btn class="primary" :disabled="!formIsValid">Add Property</v-btn>
+              <v-btn class="primary"
+              :disabled="!formIsValid"
+              type="submit">Add Property</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -76,7 +78,7 @@ export default {
   data () {
     return {
       city: '',
-      unitName: '',
+      name: '',
       description: '',
       imageUrl: ''
     }
@@ -84,9 +86,22 @@ export default {
   computed: {
     formIsValid () {
       return this.city !== '' &&
-        this.unitName !== '' &&
+        this.name !== '' &&
           this.description !== '' &&
           this.imageUrl !== ''
+    }
+  },
+  methods: {
+    onCreateUnit () {
+      const unitData = {
+        name: this.name,
+        description: this.description,
+        imageUrl: this.imageUrl,
+        city: this.city,
+        viewingDate: new Date()
+      }
+
+      this.$store.dispatch('createUnit', unitData)
     }
   }
 }
