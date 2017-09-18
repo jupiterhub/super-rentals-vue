@@ -22,6 +22,13 @@
       </v-carousel>
     </v-flex>
   </v-layout>
+
+  <v-layout row wrap class="mt-2">
+    <v-flex xs12 class="text-xs-center">
+      <p>Be featured in our properties</p>
+    </v-flex>
+  </v-layout>
+
   </v-container>
 
 </template>
