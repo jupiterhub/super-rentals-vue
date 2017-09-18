@@ -13,7 +13,7 @@
     <v-flex xs12>
       <v-carousel style="cursor: pointer">
         <v-carousel-item v-for="unit in units"
-        :src="unit.link"
+        :src="unit.imageUrl"
         :key="unit.id"
         @click="goToProperty(unit.id)">
         <div class= "title">
