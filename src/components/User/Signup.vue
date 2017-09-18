@@ -72,7 +72,8 @@ export default {
   },
   methods: {
     onSignup () {
-      console.log({email: this.email, password: this.password, confirmPassword: this.confirmPassword})
+      // vuex
+      this.$store.dispatch('signUserUp', {email: this.email, password: this.password})
     }
   }
 }

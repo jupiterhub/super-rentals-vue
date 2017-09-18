@@ -41,6 +41,8 @@ export const store = new Vuex.Store({
       commit('createUnit', unit)
     },
     signUserUp ({commit}, payload) {
+      // Firebase API: https://firebase.google.com/docs/reference/js/firebase.auth
+      // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createUserWithEmailAndPassword
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
