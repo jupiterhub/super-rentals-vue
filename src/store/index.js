@@ -12,7 +12,9 @@ export const store = new Vuex.Store({
         { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg', id: 'urban-living', name: 'Urban Living', bedrooms: 1, viewingDate: new Date(), city: 'Seattle', description: 'A commuters dream. This rental is within walking distance of 2 bus stops and the Metro.' },
         { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg', id: 'downtown-charm', name: 'Downtown Charm', bedrooms: 3, viewingDate: new Date(), city: 'Portland', description: ' Convenience is at your doorstep with this charming downtown rental. Great restaurants and active night life are within a few feet.' }
     ],
-    user: null  // do not start with any user on application
+    user: null,  // do not start with any user on application
+    loading: false,
+    error: null
   },
   mutations: {
     createUnit (state, payload) {
@@ -20,6 +22,15 @@ export const store = new Vuex.Store({
     },
     setUser (state, payload) {
       state.user = payload
+    },
+    setLoading (state, payload) {
+      state.loading = payload
+    },
+    setError (state, payload) {
+      state.error = payload
+    },
+    clearError (state) {
+      state.error = null
     }
   },
   actions: {
@@ -38,11 +49,14 @@ export const store = new Vuex.Store({
       commit('createUnit', unit)
     },
     signUserUp ({commit}, payload) {
+      commit('setLoading', true)
+      commit('clearError')    // clear all errors when sending request
       // Firebase API: https://firebase.google.com/docs/reference/js/firebase.auth
       // https://firebase.google.com/docs/reference/js/firebase.auth.Auth#createUserWithEmailAndPassword
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
+            commit('setLoading', false)
             const newUser = {
               id: user.uid,
               requestedUnits: []
@@ -52,14 +66,19 @@ export const store = new Vuex.Store({
         )
         .catch(
           error => {
+            commit('setLoading', false)
+            commit('setError', error)
             console.log(error)
           }
         )
     },
     signUserIn ({commit}, payload) {
+      commit('setLoading', true)
+      commit('clearError')    // clear all errors when sending request
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
+            commit('setLoading', false)
             const newUser = {
               id: user.uid,
               requestedUnits: [] // TODO: implement when done
@@ -69,6 +88,8 @@ export const store = new Vuex.Store({
         )
         .catch(
           error => {
+            commit('setLoading', false)
+            commit('setError', error)
             console.log(error)
           }
         )
