@@ -93,6 +93,10 @@ export default {
   },
   methods: {
     onCreateUnit () {
+      if (!this.formIsValid) {
+        return // do not proceed, in case the user enables the button
+      }
+
       const unitData = {
         name: this.name,
         description: this.description,
@@ -102,6 +106,7 @@ export default {
       }
 
       this.$store.dispatch('createUnit', unitData)
+      this.$router.push('/rentals') // redirect to Rentals
     }
   }
 }
