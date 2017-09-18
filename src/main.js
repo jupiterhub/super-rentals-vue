@@ -5,6 +5,7 @@ import Vuetify from 'vuetify'
 import './stylus/main.styl'
 import App from './App'
 import router from './router' // webpack, default looks at index.js file
+import { store } from './store'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
@@ -14,5 +15,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
+  store,
   components: { App }
 })

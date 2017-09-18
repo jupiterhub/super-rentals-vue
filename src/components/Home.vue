@@ -37,13 +37,9 @@
 
 <script>
 export default {
-  data () {
-    return {
-      units: [
-        { link: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Crane_estate_%285%29.jpg', id: 'grand-old-mansion', title: 'Grand Old Mansion' },
-        { link: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg', id: 'urban-living', title: 'Urban Living' },
-        { link: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg', id: 'downtown-charm', title: 'Downtown Charm' }
-      ]
+  computed: {
+    units () {
+      return this.$store.getters.featuredUnits
     }
   },
   methods: {
