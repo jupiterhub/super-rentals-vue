@@ -4,13 +4,16 @@
       <v-flex xs12>
         <v-card>
           <v-card-title>
-            <h6 class="primary--text">{{unit.name}}</h6>
+            <div>
+              <h5 class="primary--text">{{unit.name}}</h5>
+              <div class="secondary--text tmp-0">{{unit.city}}</div>
+            </div>
           </v-card-title>
           <v-card-media :src="unit.imageUrl"
            height="400px">
           </v-card-media>
           <v-card-text>
-            <div class="primary--text">{{unit.city}} - {{unit.viewingDate | date}}</div>
+            <div class="info--text">Viewing Availability: {{unit.viewingDate | date}}</div>
             <div>
               {{unit.description}}
             </div>
