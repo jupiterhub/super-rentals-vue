@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout row wrap v-for="unit in units" class="mb-2">
+    <v-layout row wrap v-for="unit in units" class="mb-2" :key="unit.id">
       <v-flex xs12>
         <v-card class="info white--text">
           <!-- make another container so image only takes 5 columns -->
