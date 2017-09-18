@@ -52,7 +52,12 @@
               </v-layout>
               <v-layout row>
                 <v-flex xs12>
-                  <v-btn type="submit" class="info">Sign up</v-btn>
+                  <v-btn type="submit" class="info" :disabled="loading" :loading="loading">
+                    Sign up
+                    <span slot="loader" class="custom-loader">
+                      <v-icon>cached</v-icon>
+                    </span>
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </form>
@@ -81,6 +86,9 @@ export default {
     },
     error () {
       return this.$store.getters.error
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   watch: {

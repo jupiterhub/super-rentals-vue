@@ -1,5 +1,12 @@
 <template>
   <v-container>
+    <!-- bound to the function error -->
+    <v-layout row v-if="error">
+      <v-flex xz12 sm6 offset-sm3>
+        <!-- listen to the dismissed event, defined in the component -->
+        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+      </v-flex>
+    </v-layout>
     <v-layout>
       <!-- Display full width on smaller devices, for bigger ones only occupy 9/12 spaces -->
       <v-flex xs12 sm6 offset-sm3>
@@ -33,7 +40,12 @@
               </v-layout>
               <v-layout row>
                 <v-flex xs12>
-                  <v-btn type="submit" class="info">Sign in</v-btn>
+                  <v-btn type="submit" class="info" :disabled="loading" :loading="loading">
+                    Sign in
+                    <span slot="loader" class="custom-loader">
+                      <v-icon>cached</v-icon>
+                    </span>
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </form>
@@ -55,6 +67,12 @@ export default {
   computed: {
     user () {
       return this.$store.getters.user // refer to the user that was created
+    },
+    error () {
+      return this.$store.getters.error
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   watch: {
@@ -69,6 +87,10 @@ export default {
     onSignin () {
       // vuex
       this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
+    },
+    onDismissed () {
+      console.log('dismissed alert')
+      this.$store.dispatch('clearError')
     }
   }
 }
