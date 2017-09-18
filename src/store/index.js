@@ -12,10 +12,7 @@ export const store = new Vuex.Store({
         { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg', id: 'urban-living', name: 'Urban Living', bedrooms: 1, viewingDate: new Date(), city: 'Seattle', description: 'A commuters dream. This rental is within walking distance of 2 bus stops and the Metro.' },
         { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg', id: 'downtown-charm', name: 'Downtown Charm', bedrooms: 3, viewingDate: new Date(), city: 'Portland', description: ' Convenience is at your doorstep with this charming downtown rental. Great restaurants and active night life are within a few feet.' }
     ],
-    user: {
-      id: 'userId123',
-      requestedUnits: ['grand-old-mansion']
-    }
+    user: null  // do not start with any user on application
   },
   mutations: {
     createUnit (state, payload) {
@@ -37,7 +34,7 @@ export const store = new Vuex.Store({
         viewingDate: payload.viewingDate
       }
       console.log(unit)
-      // TODO: Firebase
+      // Firebase
       commit('createUnit', unit)
     },
     signUserUp ({commit}, payload) {
@@ -75,6 +72,9 @@ export const store = new Vuex.Store({
           return unit.id === unitId
         })
       }
+    },
+    user (state) {
+      return state.user
     }
   }
 })

@@ -68,6 +68,17 @@ export default {
   computed: {
     comparePasswords () {
       return this.password !== this.confirmPassword ? 'Password do not match' : ''
+    },
+    user () {
+      return this.$store.getters.user // refer to the user that was created
+    }
+  },
+  watch: {
+    user (value) {  // watch the user() property from computed
+      if (value !== null && value !== undefined) {
+        // there is a user now, sign up success. redirect
+        this.$router.push('/')
+      }
     }
   },
   methods: {
