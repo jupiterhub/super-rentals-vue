@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as firebase from 'firebase'
 
 Vue.use(Vuex)
 let counter = 0
@@ -19,6 +20,9 @@ export const store = new Vuex.Store({
   mutations: {
     createUnit (state, payload) {
       state.loadedUnits.push(payload)
+    },
+    setUser (state, payload) {
+      state.user = payload
     }
   },
   actions: {
@@ -35,6 +39,23 @@ export const store = new Vuex.Store({
       console.log(unit)
       // TODO: Firebase
       commit('createUnit', unit)
+    },
+    signUserUp ({commit}, payload) {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(
+          user => {
+            const newUser = {
+              id: user.uid,
+              requestedUnits: []
+            }
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            console.log(error)
+          }
+        )
     }
   },
   getters: {
