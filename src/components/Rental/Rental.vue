@@ -10,7 +10,7 @@
            height="400px">
           </v-card-media>
           <v-card-text>
-            <div class="primary--text">Viewing Date: {{unit.viewingDate}}</div>
+            <div class="primary--text">{{unit.city}} - {{unit.viewingDate}}</div>
             <div>
               {{unit.description}}
             </div>
