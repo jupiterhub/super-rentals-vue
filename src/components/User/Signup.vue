@@ -5,7 +5,7 @@
       <v-flex xs12 sm6 offset-sm3>
         <v-card-text>
           <v-container>
-            <form>
+            <form @submit.prevent="onSignup">
               <v-layout row>
                 <!-- take the full width, but already constrained from the parent-->
                 <v-flex xs12>
@@ -45,7 +45,7 @@
               </v-layout>
               <v-layout row>
                 <v-flex xs12>
-                  <v-btn type="submit">Sign up</v-btn>
+                  <v-btn type="submit" class="info">Sign up</v-btn>
                 </v-flex>
               </v-layout>
             </form>
