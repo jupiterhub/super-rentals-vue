@@ -10,6 +10,7 @@
            height="400px">
           </v-card-media>
           <v-card-text>
+            <div class="primary--text">Unit available from: {{unit.rentAvailability}}</div>
             <div>
               This grand old mansion sits on over 100 acres of rolling hills and dense redwood forests
             </div>
