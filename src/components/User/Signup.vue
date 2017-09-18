@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <v-layout row>
+      <v-flex xz12 sm6 offset-sm3>
+        <!-- listen to the dismissed event, defined in the component -->
+        <app-alert @dismissed="onDismissed"></app-alert>
+      </v-flex>
+    </v-layout>
     <v-layout>
       <!-- Display full width on smaller devices, for bigger ones only occupy 9/12 spaces -->
       <v-flex xs12 sm6 offset-sm3>
@@ -85,6 +91,9 @@ export default {
     onSignup () {
       // vuex
       this.$store.dispatch('signUserUp', {email: this.email, password: this.password})
+    },
+    onDismissed () {
+      console.log('dismissed alert')
     }
   }
 }
