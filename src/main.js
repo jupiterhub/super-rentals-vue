@@ -45,6 +45,7 @@ new Vue({
       // detects if you are alreadey signed-in via localStorage
       if (user) {
         this.$store.dispatch('autoSignIn', user)
+        this.$store.dispatch('fetchUserData')
       }
     })
     this.$store.dispatch('loadUnits')

@@ -103,7 +103,6 @@ export const store = new Vuex.Store({
       const user = getters.user
       const fbKey = user.fbKeys[payload]
 
-      console.log('################### ' + fbKey)
       if (!user.fbKeys) {
         commit('setLoading', false)
         return
@@ -276,7 +275,37 @@ export const store = new Vuex.Store({
         )
     },
     autoSignIn ({commit}, payload) {
-      commit('setUser', {id: payload.uid, requestedUnits: [], fbKeys: {}})
+      commit('setUser', {
+        id: payload.uid,
+        requestedUnits: [],
+        fbKeys: {}
+      })
+    },
+    fetchUserData ({commit, getters}) {
+      commit('setLoading', true)
+      // once fetches data only once, 'on' will listen to changes
+      firebase.database().ref('/users/' + getters.user.id + '/requestedUnits/').once('value')
+        .then(data => {
+          const firebaseAndUnitPairs = data.val() // returns an array of [firebaseKey: unitKey]
+          let requestedUnits = []
+          let swappedPairs = {}
+          for (let firebaseKey in firebaseAndUnitPairs) {
+            let unitId = firebaseAndUnitPairs[firebaseKey]
+            requestedUnits.push(unitId)
+            swappedPairs[unitId] = firebaseKey
+          }
+          const updatedUser = {
+            id: getters.user.id,
+            requestedUnits: requestedUnits,
+            fbKeys: swappedPairs  // id=firebase, val=unit
+          }
+          commit('setLoading', false)
+          commit('setUser', updatedUser)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setLoading', false)
+        })
     },
     logout ({commit}) {
       firebase.auth().signOut() // remove token from localStorage
