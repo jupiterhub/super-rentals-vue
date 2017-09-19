@@ -33,6 +33,31 @@ export const store = new Vuex.Store({
     },
     setLoadedUnits (state, payload) {
       state.loadedUnits = payload
+    },
+    updateUnit (state, payload) {
+      // find will return a unit, and only return the id that matches
+      const unit = state.loadedUnits.find(unit => {
+        return unit.id === payload.id
+      })
+
+      // change only when you want to change
+
+      if (unit.name) {
+        // do not override data if empty
+        unit.name = payload.name
+      }
+      if (unit.city) {
+        // do not override data if empty
+        unit.city = payload.city
+      }
+      if (unit.description) {
+        // do not override data if empty
+        unit.description = payload.description
+      }
+      if (unit.viewingDate) {
+        // do not override data if empty
+        unit.viewingDate = payload.viewingDate
+      }
     }
   },
   actions: {
@@ -110,6 +135,37 @@ export const store = new Vuex.Store({
       .catch((error) => {
         console.log(error)
       })
+    },
+    updateUnitData ({commit}, payload) {
+      commit('setLoading', true)
+      const updateObj = {}
+      if (payload.name) {
+        // do not override data if empty
+        updateObj.name = payload.name
+      }
+      if (payload.city) {
+        // do not override data if empty
+        updateObj.city = payload.city
+      }
+      if (payload.description) {
+        // do not override data if empty
+        updateObj.description = payload.description
+      }
+      if (payload.viewingDate) {
+        // do not override data if empty
+        updateObj.viewingDate = payload.viewingDate
+      }
+
+      // update will only override properties that needs to be overwriten
+      firebase.database().ref('units').child(payload.id).update(updateObj)
+        .then(() => {
+          commit('setLoading', false)
+          commit('updateUnit', payload)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setLoading', false)
+        })
     },
     signUserUp ({commit}, payload) {
       commit('setLoading', true)

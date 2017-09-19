@@ -83,9 +83,14 @@ export default {
           this.editedCity.trim() === '' ||
           this.editedDescription.trim() === '') {
         return
-      } else {
-        this.editDialog = false
       }
+      this.editDialog = false
+      this.$store.dispatch('updateUnitData', {
+        id: this.unit.id,
+        title: this.editedTitle,
+        city: this.editedCity,
+        description: this.editedDescription
+      })
     }
   }
 }
