@@ -47,7 +47,8 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <app-request-viewing-dialog
-              :unitId="unit.id"></app-request-viewing-dialog>
+              :unitId="unit.id"
+              v-if="userIsAuthenticated && !userIsCreator"></app-request-viewing-dialog>
           </v-card-actions>
         </v-card>
       </v-flex>
