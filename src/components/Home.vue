@@ -10,13 +10,13 @@
     </v-layout>
 
   <v-layout>
-    <v-flex xz12 class="text-xs-center">
+    <v-flex xz12 class="text-xs-center"
+      v-if="loading">
       <v-progress-circular
         indeterminate
         class="primary--text"
         :width="4"
-        :size="50"
-        v-if="loading">
+        :size="50">
       </v-progress-circular>
     </v-flex>
   </v-layout>

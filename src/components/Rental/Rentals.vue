@@ -1,6 +1,20 @@
 <template>
   <v-container>
-    <v-layout row wrap v-for="unit in units" class="mb-2" :key="unit.id">
+    <v-layout v-if="loading">
+      <v-flex xz12 class="text-xs-center mt-5">
+        <v-progress-circular
+          indeterminate
+          class="primary--text"
+          :width="4"
+          :size="50">
+        </v-progress-circular>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row wrap v-for="unit in units"
+      class="mb-2"
+      :key="unit.id"
+      v-if="!loading">
       <v-flex xs12>
         <v-card class="info white--text">
           <!-- make another container so image only takes 5 columns -->
@@ -38,6 +52,9 @@
     computed: {
       units () {
         return this.$store.state.loadedUnits
+      },
+      loading () {
+        return this.$store.getters.loading
       }
     }
   }
