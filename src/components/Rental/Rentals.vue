@@ -11,7 +11,7 @@
       </v-flex>
     </v-layout>
 
-    <v-layout row wrap v-for="unit in units"
+    <v-layout row wrap v-for="unit in units2"
       class="mb-2"
       :key="unit.id"
       v-if="!loading">
@@ -22,7 +22,7 @@
             <v-layout>
             <v-flex xs5 sm4 md3>
               <v-card-media :src="unit.imageUrl"
-               height="200px">
+               height="150px">
               </v-card-media>
             </v-flex>
             <v-flex xs7 sm8 md9>
@@ -50,8 +50,8 @@
 <script>
   export default {
     computed: {
-      units () {
-        return this.$store.state.loadedUnits
+      units2 () {
+        return this.$store.getters.loadedUnits
       },
       loading () {
         return this.$store.getters.loading
