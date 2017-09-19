@@ -69,15 +69,18 @@
             </v-flex>
           </v-layout>
 
-          <v-layout row class="mb-2">
-            <v-flex xs12 sm6 offset-sm3>
+
+          <v-layout row class="mb-2" wrap>
+          <v-layout class="mb-2 mr-2">
+            <v-flex xs12 sm3 offset-sm3 md3 offset-md6>
               <v-date-picker v-model="date"></v-date-picker>
             </v-flex>
           </v-layout>
-          <v-layout row>
-            <v-flex xs12 sm6 offset-sm3>
+          <v-layout>
+            <v-flex xs12 sm3 offset-sm3 md3 offset-md0>
               <v-time-picker v-model="time" format="24hr"></v-time-picker>
             </v-flex>
+          </v-layout>
           </v-layout>
 
           <v-layout row>
