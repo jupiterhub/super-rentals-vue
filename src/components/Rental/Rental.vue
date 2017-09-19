@@ -9,7 +9,7 @@
               <div class="secondary--text tmp-0">{{unit.city}}</div>
             </div>
             <!-- only show if the user is the owner of this property -->
-            <template v-if="true">
+            <template v-if="userIsCreator">
               <v-spacer></v-spacer>
               <app-edit-unit-details-dialog></app-edit-unit-details-dialog>
             </template>
@@ -40,6 +40,19 @@ export default {
     unit () {
       // you can use this.$route to get the id or use props (like above)
       return this.$store.getters.loadedUnit(this.id)
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+    },
+    userIsCreator () {
+      // refers to computed property
+      if (!this.userIsAuthenticated) {
+        return false
+      }
+
+      // this,unit refers to computed unit()
+      return this.$store.getters.user.id === this.unit.creatorId
     }
   }
 }
