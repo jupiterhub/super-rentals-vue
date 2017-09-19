@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import * as firebase from 'firebase'
 
 Vue.use(Vuex)
-let counter = 0
 
 export const store = new Vuex.Store({
   state: {
@@ -37,16 +36,26 @@ export const store = new Vuex.Store({
     // state.commit (the curly braces is a function to say i only want this method)
     createUnit ({commit}, payload) {
       const unit = {
-        id: '' + counter++,
         name: payload.name,
         description: payload.description,
         imageUrl: payload.imageUrl,
         city: payload.city,
-        viewingDate: payload.viewingDate
+        viewingDate: payload.viewingDate.toISOString()  // Firebase cannot store d date object, only a string
       }
       console.log(unit)
       // Firebase
-      commit('createUnit', unit)
+      firebase.database().ref('units').push(unit)
+      .then((data) => {
+        const key = data.key
+        console.log(data)
+        commit('createUnit', {
+          ...unit,  // get all properties from unit
+          id: key     // then add the key
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     signUserUp ({commit}, payload) {
       commit('setLoading', true)
