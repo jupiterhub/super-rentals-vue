@@ -8,6 +8,11 @@
               <h5 class="primary--text">{{unit.name}}</h5>
               <div class="secondary--text tmp-0">{{unit.city}}</div>
             </div>
+            <!-- only show if the user is the owner of this property -->
+            <template v-if="true">
+              <v-spacer></v-spacer>
+              <app-edit-unit-details-dialog></app-edit-unit-details-dialog>
+            </template>
           </v-card-title>
           <v-card-media :src="unit.imageUrl"
            height="400px">
