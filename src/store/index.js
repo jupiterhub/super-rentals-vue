@@ -135,6 +135,10 @@ export const store = new Vuex.Store({
     autoSignIn ({commit}, payload) {
       commit('setUser', {id: payload.uid, requestedUnits: []})
     },
+    logout ({commit}) {
+      firebase.auth().signOut() // remove token from localStorage
+      commit('setUser', null)
+    },
     clearError ({commit}) {
       commit('clearError')
     }
