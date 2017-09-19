@@ -9,9 +9,20 @@
       </v-flex>
     </v-layout>
 
+  <v-layout>
+    <v-flex xz12 class="text-xs-center">
+      <v-progress-circular
+        indeterminate
+        class="primary--text"
+        :width="4"
+        :size="50"
+        v-if="loading">
+      </v-progress-circular>
+    </v-flex>
+  </v-layout>
   <v-layout row wrap>
     <v-flex xs12>
-      <v-carousel style="cursor: pointer">
+      <v-carousel style="cursor: pointer" v-if="!loading">
         <v-carousel-item v-for="unit in units"
         :src="unit.imageUrl"
         :key="unit.id"
@@ -40,6 +51,9 @@ export default {
   computed: {
     units () {
       return this.$store.getters.featuredUnits
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   },
   methods: {

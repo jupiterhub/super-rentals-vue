@@ -37,6 +37,7 @@ export const store = new Vuex.Store({
   },
   actions: {
     loadUnits ({commit}) {
+      commit('setLoading', true)
       // you can use 'once' (http, one time) instead of 'on' (websockets, requires 2 args)
       firebase.database().ref('units').once('value')  // 'value' is a reserved keyword from firebase
         .then((data, val) => {
@@ -54,9 +55,11 @@ export const store = new Vuex.Store({
             })
           }
           commit('setLoadedUnits', units)
+          commit('setLoading', false)
         })
         .catch((error, hall) => {
           console.log(error)
+          commit('setLoading', false)
         })
     },
     // state.commit (the curly braces is a function to say i only want this method)
