@@ -136,7 +136,7 @@ export default {
       }
 
       if (!this.image) {
-        return  // do not proceed on empty image
+        return
       }
 
       const unitData = {

@@ -36,6 +36,9 @@
               <app-edit-viewing-date-dialog
                 :unit="unit"
                 v-if="userIsCreator"></app-edit-viewing-date-dialog>
+                <app-edit-viewing-time-dialog
+                  :unit="unit"
+                  v-if="userIsCreator"></app-edit-viewing-time-dialog>
             </div>
             <div>
               {{unit.description}}
