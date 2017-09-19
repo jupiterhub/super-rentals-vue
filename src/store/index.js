@@ -171,7 +171,7 @@ export const store = new Vuex.Store({
   getters: {
     loadedUnits (state) {
       return state.loadedUnits.sort((unitA, unitB) => {
-        return unitA.bedroom > unitB.bedroom // sort by bedroom count
+        return unitA.name > unitB.name // sort by name
       })
     },
     featuredUnits (state, getters) {
