@@ -87,7 +87,7 @@ export default {
       this.editDialog = false
       this.$store.dispatch('updateUnitData', {
         id: this.unit.id,
-        title: this.editedTitle,
+        name: this.editedName,
         city: this.editedCity,
         description: this.editedDescription
       })
