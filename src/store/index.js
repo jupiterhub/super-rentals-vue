@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
     loadedUnits: [
         { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Crane_estate_%285%29.jpg', id: 'grand-old-mansion', name: 'Grand Old Mansion', bedrooms: 15, viewingDate: new Date(), city: 'San Francisco', description: 'This grand old mansion sits on over 100 acres of rolling hills and dense redwood forests.' },
         { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Alfonso_13_Highrise_Tegucigalpa.jpg', id: 'urban-living', name: 'Urban Living', bedrooms: 1, viewingDate: new Date(), city: 'Seattle', description: 'A commuters dream. This rental is within walking distance of 2 bus stops and the Metro.' },
-        { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg', id: 'downtown-charm', name: 'Downtown Charm', bedrooms: 3, viewingDate: new Date(), city: 'Portland', description: ' Convenience is at your doorstep with this charming downtown rental. Great restaurants and active night life are within a few feet.' }
+        { imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Wheeldon_Apartment_Building_-_Portland_Oregon.jpg', id: 'downtown-charm', name: 'Downtown Charm', bedrooms: 3, viewingDate: new Date(), city: 'Portland', description: 'Convenience is at your doorstep with this charming downtown rental. Great restaurants and active night life are within a few feet.' }
     ],
     user: null,  // do not start with any user on application
     loading: false,
@@ -43,7 +43,6 @@ export const store = new Vuex.Store({
         .then((data, val) => {
           const units = []
           const obj = data.val()  // obj has 2 props, key and value
-          console.log('Retrieved units: ' + obj)
           for (let key in obj) {
             units.push({
               id: key,
@@ -68,22 +67,46 @@ export const store = new Vuex.Store({
       const unit = {
         name: payload.name,
         description: payload.description,
-        imageUrl: payload.imageUrl,
         city: payload.city,
         viewingDate: payload.viewingDate.toISOString(),  // Firebase cannot store d date object, only a string
         creatorId: getters.user.id
       }
-      console.log(unit)
+
+      let imageUrl
+      let key
+
       // Firebase
       firebase.database().ref('units').push(unit)
       .then((data) => {
-        const key = data.key
-        console.log(data)
+        key = data.key
+        // return key first to associate image with the key
+        return key
+      })
+      .then(key => {
+        const filename = payload.image.name
+        const ext = filename.slice(filename.lastIndexOf('.'))
+
+        // reach out to Firebase Storage
+        // store under units/ subfolder, return promise
+        return firebase.storage().ref('units/' + key + '.' + ext)
+          .put(payload.image) // for storage() use .put()
+      })
+      .then(fileData => {
+        // URL of uploaded image on the store
+        // https://firebase.google.com/docs/reference/js/firebase.storage.Reference
+        imageUrl = fileData.metadata.downloadURLs[0]  // only uploaded 1
+
+        // .update() only override fields we specify
+        return firebase.database().ref('units').child(key).update({imageUrl: imageUrl})
+      })
+      .then(() => {
         commit('createUnit', {
           ...unit,  // get all properties from unit
+          imageUrl: imageUrl, // imageURL from Firebase (automatically created when we put the image)
           id: key     // then add the key
         })
       })
+
       .catch((error) => {
         console.log(error)
       })

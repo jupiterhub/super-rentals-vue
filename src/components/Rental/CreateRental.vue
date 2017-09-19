@@ -32,13 +32,17 @@
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <v-text-field
-                name="imageUrl"
-                label="Image URL"
-                id="image-url"
-                required
-                v-model="imageUrl">
-              </v-text-field>
+              <v-btn raised
+                class="primary"
+                @click="onPickFile">Upload Image
+              </v-btn>
+              <!-- No Vuetify for File upload, create a button and trigger file upload event
+                ref="" is a Vue property to refer -->
+              <input type="file"
+              style="display: none"
+                ref="fileInput"
+                accept="image/*"
+                @change="onFilePicked">
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -99,7 +103,8 @@ export default {
       description: '',
       imageUrl: '',
       date: new Date(),
-      time: new Date()
+      time: new Date(),
+      image: null
     }
   },
   computed: {
@@ -130,16 +135,43 @@ export default {
         return // do not proceed, in case the user enables the button
       }
 
+      if (!this.image) {
+        return  // do not proceed on empty image
+      }
+
       const unitData = {
         name: this.name,
         description: this.description,
-        imageUrl: this.imageUrl,
+        image: this.image,  // imageUrl can be store but it is in BASE64, storing image like this is not good, because it's too long. Instead store binary
         city: this.city,
         viewingDate: this.submittableDateTime
       }
 
       this.$store.dispatch('createUnit', unitData)
       this.$router.push('/rentals') // redirect to Rentals
+    },
+    onPickFile () {
+      // access all ref="" on this component
+      this.$refs.fileInput.click() // execute native click
+    },
+    onFilePicked (event) {
+      const files = event.target.files // default dom to access a list of files
+      let fileName = files[0].name // .filename is native javascript
+
+      if (fileName.lastIndexOf('.') <= 0) {
+        return alert('Please add a valid file!')
+      }
+      // covert image to Base64
+      const fileReader = new FileReader() // JS Feature
+
+      // listen to load event (fires when done)
+      fileReader.addEventListener('load', () => {
+        // <img> can read a base64 and bes way to preview
+        this.imageUrl = fileReader.result
+      })
+
+      fileReader.readAsDataURL(files[0])  // async action, will trigger event
+      this.image = files[0]
     }
   }
 }
