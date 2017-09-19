@@ -17,7 +17,7 @@
         :key="unit.id"
         @click="goToProperty(unit.id)">
         <div class= "title">
-          {{unit.title}}
+          {{unit.name}}
         </div>
         </v-carousel-item>
       </v-carousel>
