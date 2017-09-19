@@ -30,7 +30,7 @@ new Vue({
       authDomain: 'superrentals-1505459904619.firebaseapp.com',
       databaseURL: 'https://superrentals-1505459904619.firebaseio.com',
       projectId: 'superrentals-1505459904619',
-      storageBucket: ''
+      storageBucket: 'gs://superrentals-1505459904619.appspot.com'
     })
 
     firebase.auth().onAuthStateChanged((user) => {
