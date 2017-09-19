@@ -12,6 +12,7 @@ import AlertComponent from './components/shared/Alert.vue'
 import EditUnitDetailsDialog from './components/Rental/Edit/EditUnitDetailsDialog.vue'
 import EditViewingDateDialog from './components/Rental/Edit/EditViewingDateDialog.vue'
 import EditViewingTimeDialog from './components/Rental/Edit/EditViewingTimeDialog.vue'
+import RequestViewingDialog from './components/Rental/Request/RequestViewingDialog.vue'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
@@ -21,6 +22,7 @@ Vue.component('app-alert', AlertComponent)
 Vue.component('app-edit-unit-details-dialog', EditUnitDetailsDialog)
 Vue.component('app-edit-viewing-date-dialog', EditViewingDateDialog)
 Vue.component('app-edit-viewing-time-dialog', EditViewingTimeDialog)
+Vue.component('app-request-viewing-dialog', RequestViewingDialog)
 
 /* eslint-disable no-new */
 new Vue({

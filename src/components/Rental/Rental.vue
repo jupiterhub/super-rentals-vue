@@ -46,7 +46,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="primary">Rent</v-btn>
+            <app-request-viewing-dialog
+              :unitId="unit.id"></app-request-viewing-dialog>
           </v-card-actions>
         </v-card>
       </v-flex>
