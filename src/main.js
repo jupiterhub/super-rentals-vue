@@ -32,5 +32,6 @@ new Vue({
       projectId: 'superrentals-1505459904619',
       storageBucket: ''
     })
+    this.$store.dispatch('loadUnits')
   }
 })

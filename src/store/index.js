@@ -30,9 +30,35 @@ export const store = new Vuex.Store({
     },
     clearError (state) {
       state.error = null
+    },
+    setLoadedUnits (state, payload) {
+      state.loadedUnits = payload
     }
   },
   actions: {
+    loadUnits ({commit}) {
+      // you can use 'once' (http, one time) instead of 'on' (websockets, requires 2 args)
+      firebase.database().ref('units').once('value')  // 'value' is a reserved keyword from firebase
+        .then((data, val) => {
+          const units = []
+          const obj = data.val()  // obj has 2 props, key and value
+          console.log('Retrieved units: ' + obj)
+          for (let key in obj) {
+            units.push({
+              id: key,
+              name: obj[key].name,
+              description: obj[key].description,
+              imageUrl: obj[key].imageUrl,
+              city: obj[key].city,
+              viewingDate: obj[key].viewingDate
+            })
+          }
+          commit('setLoadedUnits', units)
+        })
+        .catch((error, hall) => {
+          console.log(error)
+        })
+    },
     // state.commit (the curly braces is a function to say i only want this method)
     createUnit ({commit}, payload) {
       const unit = {
