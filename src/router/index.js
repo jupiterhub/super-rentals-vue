@@ -7,6 +7,7 @@ import Rental from '@/components/Rental/Rental'
 import Profile from '@/components/User/Profile'
 import Signup from '@/components/User/Signup'
 import Signin from '@/components/User/Signin'
+import AuthGuard from './auth-guard'  // same directory
 
 Vue.use(Router)
 
@@ -25,7 +26,8 @@ export default new Router({
     {
       path: '/rental/new',
       name: 'CreateRental',
-      component: CreateRental
+      component: CreateRental,
+      beforeEnter: AuthGuard  // protect this route
     },
     {
       path: '/rentals/:id',
