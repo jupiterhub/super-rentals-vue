@@ -16,6 +16,28 @@ export const store = new Vuex.Store({
     error: null
   },
   mutations: {
+    requestViewing (state, payload) {
+      const id = payload.id
+
+      // already requested viewing?
+      if (state.user.requestedUnits.findIndex(unit => unit.id === id) >= 0) {
+        return
+      }
+
+      state.user.requestedUnits.push(id)
+      // this way we can lookup the id, and get the firebase Key
+      state.user.fbKeys[id] = payload.fbKey
+    },
+    cancelViewing (state, payload) {
+      const requestedUnits = state.user.requestedUnits
+
+      // Splice removes the element given
+      const unitArrayPosition = requestedUnits.findIndex(meetup => meetup.id === payload)
+      requestedUnits.splice(unitArrayPosition, 1)  // remove that element
+
+      // JS API. Remove fbKeys (firebase key)
+      Reflect.deleteProperty(state.user.fbKeys, payload)  // delete only that key
+    },
     createUnit (state, payload) {
       state.loadedUnits.push(payload)
     },
@@ -62,6 +84,43 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    requestViewing ({commit, getters}, payload) {
+      commit('setLoading', true)
+      const user = getters.user
+      firebase.database().ref('/users/' + user.id).child('/requestedUnits/')
+        .push(payload)
+        .then((data) => {
+          commit('setLoading', false)
+          commit('requestViewing', {id: payload, fbKey: data.key})
+        })
+        .catch((error) => {
+          console.log(error)
+          commit('setLoading', false)
+        })
+    },
+    cancelViewing ({commit, getters}, payload) {
+      commit('setLoading', true)
+      const user = getters.user
+      const fbKey = user.fbKeys[payload]
+
+      console.log('################### ' + fbKey)
+      if (!user.fbKeys) {
+        commit('setLoading', false)
+        return
+      }
+
+      firebase.database()
+          .ref('/users/' + user.id + '/requestedUnits/').child(fbKey)
+          .remove()
+          .then(() => {
+            commit('setLoading', false)
+            commit('cancelViewing', payload)
+          })
+          .catch(error => {
+            commit('setLoading', false)
+            console.log(error)
+          })
+    },
     loadUnits ({commit}) {
       commit('setLoading', true)
       // you can use 'once' (http, one time) instead of 'on' (websockets, requires 2 args)
@@ -179,7 +238,8 @@ export const store = new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
-              requestedUnits: []
+              requestedUnits: [],
+              fbKeys: {}
             }
             commit('setUser', newUser)
           }
@@ -201,7 +261,8 @@ export const store = new Vuex.Store({
             commit('setLoading', false)
             const newUser = {
               id: user.uid,
-              requestedUnits: [] // TODO: implement when done
+              requestedUnits: [],
+              fbKeys: {}
             }
             commit('setUser', newUser)
           }
@@ -215,7 +276,7 @@ export const store = new Vuex.Store({
         )
     },
     autoSignIn ({commit}, payload) {
-      commit('setUser', {id: payload.uid, requestedUnits: []})
+      commit('setUser', {id: payload.uid, requestedUnits: [], fbKeys: {}})
     },
     logout ({commit}) {
       firebase.auth().signOut() // remove token from localStorage

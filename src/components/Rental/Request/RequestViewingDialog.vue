@@ -53,14 +53,18 @@ export default {
   computed: {
     userHasRequestedViewing () {
       // the function is executed on every single record
-      this.$store.getters.user.requestedUnits.findIndex(unitId => {
+      return this.$store.getters.user.requestedUnits.findIndex(unitId => {
         return unitId === this.unitId
       }) >= 0 // - if it doesn't find record
     }
   },
   methods: {
     onAgree () {
-
+      if (this.userHasRequestedViewing) {
+        this.$store.dispatch('cancelViewing', this.unitId)
+      } else {
+        this.$store.dispatch('requestViewing', this.unitId)
+      }
     }
   }
 }
