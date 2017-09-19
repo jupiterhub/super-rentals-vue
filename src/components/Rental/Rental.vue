@@ -1,6 +1,18 @@
 <template>
   <v-container>
-    <v-layout row wrap>
+    <v-layout v-if="loading">
+      <v-flex xz12 class="text-xs-center mt-5">
+        <v-progress-circular
+          indeterminate
+          class="primary--text"
+          :width="4"
+          :size="50">
+        </v-progress-circular>
+      </v-flex>
+    </v-layout>
+
+    <!-- v-else because we already have if in same level of nesting -->
+    <v-layout row wrap v-else>
       <v-flex xs12>
         <v-card>
           <v-card-title>
@@ -11,7 +23,8 @@
             <!-- only show if the user is the owner of this property -->
             <template v-if="userIsCreator">
               <v-spacer></v-spacer>
-              <app-edit-unit-details-dialog></app-edit-unit-details-dialog>
+              <app-edit-unit-details-dialog
+                :unit="unit"></app-edit-unit-details-dialog>
             </template>
           </v-card-title>
           <v-card-media :src="unit.imageUrl"
@@ -53,6 +66,9 @@ export default {
 
       // this,unit refers to computed unit()
       return this.$store.getters.user.id === this.unit.creatorId
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }
