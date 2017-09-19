@@ -51,7 +51,8 @@ export const store = new Vuex.Store({
               description: obj[key].description,
               imageUrl: obj[key].imageUrl,
               city: obj[key].city,
-              viewingDate: obj[key].viewingDate
+              viewingDate: obj[key].viewingDate,
+              creatorId: obj[key].creatorId
             })
           }
           commit('setLoadedUnits', units)
@@ -63,13 +64,14 @@ export const store = new Vuex.Store({
         })
     },
     // state.commit (the curly braces is a function to say i only want this method)
-    createUnit ({commit}, payload) {
+    createUnit ({commit, getters}, payload) {
       const unit = {
         name: payload.name,
         description: payload.description,
         imageUrl: payload.imageUrl,
         city: payload.city,
-        viewingDate: payload.viewingDate.toISOString()  // Firebase cannot store d date object, only a string
+        viewingDate: payload.viewingDate.toISOString(),  // Firebase cannot store d date object, only a string
+        creatorId: getters.user.id
       }
       console.log(unit)
       // Firebase
