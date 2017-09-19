@@ -10,6 +10,7 @@ import { store } from './store'
 import DateFilter from './filters/date'
 import AlertComponent from './components/shared/Alert.vue'
 import EditUnitDetailsDialog from './components/Rental/Edit/EditUnitDetailsDialog.vue'
+import EditViewingDateDialog from './components/Rental/Edit/EditViewingDateDialog.vue'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 Vue.filter('date', DateFilter)
 Vue.component('app-alert', AlertComponent)
 Vue.component('app-edit-unit-details-dialog', EditUnitDetailsDialog)
+Vue.component('app-edit-viewing-date-dialog', EditViewingDateDialog)
 
 /* eslint-disable no-new */
 new Vue({

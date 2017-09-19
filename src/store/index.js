@@ -41,20 +41,21 @@ export const store = new Vuex.Store({
       })
 
       // change only when you want to change
-
-      if (unit.name) {
+      if (payload.name) {
+        console.log('3333333333333333333')
         // do not override data if empty
         unit.name = payload.name
       }
-      if (unit.city) {
+      if (payload.city) {
         // do not override data if empty
         unit.city = payload.city
       }
-      if (unit.description) {
+      if (payload.description) {
         // do not override data if empty
         unit.description = payload.description
       }
-      if (unit.viewingDate) {
+      if (payload.viewingDate) {
+        console.log('44444444444444')
         // do not override data if empty
         unit.viewingDate = payload.viewingDate
       }

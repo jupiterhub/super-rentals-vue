@@ -33,6 +33,11 @@
           <v-card-text>
             <div class="info--text">Viewing Availability: {{unit.viewingDate | date}}</div>
             <div>
+              <app-edit-viewing-date-dialog
+                :unit="unit"
+                v-if="userIsCreator"></app-edit-viewing-date-dialog>
+            </div>
+            <div>
               {{unit.description}}
             </div>
           </v-card-text>
