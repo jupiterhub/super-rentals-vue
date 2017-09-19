@@ -32,6 +32,13 @@ new Vue({
       projectId: 'superrentals-1505459904619',
       storageBucket: ''
     })
+
+    firebase.auth().onAuthStateChanged((user) => {
+      // detects if you are alreadey signed-in via localStorage
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
     this.$store.dispatch('loadUnits')
   }
 })
