@@ -23,7 +23,6 @@ export default {
 
       // change only when you want to change
       if (payload.name) {
-        console.log('3333333333333333333')
         // do not override data if empty
         unit.name = payload.name
       }
@@ -36,7 +35,6 @@ export default {
         unit.description = payload.description
       }
       if (payload.viewingDate) {
-        console.log('44444444444444')
         // do not override data if empty
         unit.viewingDate = payload.viewingDate
       }
@@ -61,7 +59,6 @@ export default {
               creatorId: obj[key].creatorId
             })
           }
-          console.log('@unit/index.js++++++++++++++++++++++ ' + units)
           commit('setLoadedUnits', units)
           commit('setLoading', false)
         })
