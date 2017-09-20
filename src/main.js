@@ -34,11 +34,11 @@ new Vue({
   created () {  // built-in hook called when Vue is finished initializing
     firebase.initializeApp({
       // taken from the firebase console
-      apiKey: 'AIzaSyC2x5EuG2LgdolBWlloT-sYJyf_T2TGHnk',
-      authDomain: 'superrentals-1505459904619.firebaseapp.com',
-      databaseURL: 'https://superrentals-1505459904619.firebaseio.com',
-      projectId: 'superrentals-1505459904619',
-      storageBucket: 'gs://superrentals-1505459904619.appspot.com'
+      apiKey: process.env.API_KEY,
+      authDomain: process.env.AUTH_DOMAIN,
+      databaseURL: process.env.DATABASE_URL,
+      projectId: process.env.PROEJCT_ID,
+      storageBucket: process.env.STORAGE_BUCKET
     })
 
     firebase.auth().onAuthStateChanged((user) => {
