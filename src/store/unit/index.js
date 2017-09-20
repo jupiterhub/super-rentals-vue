@@ -62,7 +62,7 @@ export default {
           commit('setLoadedUnits', units)
           commit('setLoading', false)
         })
-        .catch((error, hall) => {
+        .catch((error) => {
           console.log(error)
           commit('setLoading', false)
         })

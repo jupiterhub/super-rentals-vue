@@ -46,8 +46,8 @@ new Vue({
       if (user) {
         this.$store.dispatch('autoSignIn', user)
         this.$store.dispatch('fetchUserData')
+        this.$store.dispatch('loadUnits')
       }
     })
-    this.$store.dispatch('loadUnits')
   }
 })
