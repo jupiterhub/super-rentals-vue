@@ -3,7 +3,9 @@ Usage of Vue makes developing beautiful and fun with the material icons. You wil
 
 # super-rentals-vue
 > Ported implementation of SuperRentals (see https://github.com/jupiterhub/super-rentals)
-> Demo: https://superrentals-1505459904619.firebaseapp.com/
+
+## Demo
+https://superrentals-1505459904619.firebaseapp.com/
 
 ## Build Setup
 ~~~~
